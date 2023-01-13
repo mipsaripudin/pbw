@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.4
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 20, 2022 at 03:28 PM
--- Server version: 10.4.17-MariaDB
--- PHP Version: 8.0.2
+-- Generation Time: Jan 13, 2023 at 08:39 AM
+-- Server version: 10.4.27-MariaDB
+-- PHP Version: 7.4.33
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -33,7 +33,7 @@ CREATE TABLE `absen` (
   `waktu` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `keterangan` varchar(100) NOT NULL,
   `estimated` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `absen`
@@ -45,7 +45,8 @@ INSERT INTO `absen` (`id_absen`, `nip`, `waktu`, `keterangan`, `estimated`) VALU
 (11, '1710821900', '2022-12-19 01:01:35', 'masuk', '2022-12-19'),
 (12, '1710821900', '2022-12-19 10:01:46', 'pulang', '2022-12-19'),
 (13, '171091800', '2022-12-19 10:02:02', 'pulang', '2022-12-19'),
-(14, '17108217001', '2022-12-19 10:02:11', 'pulang', '2022-12-19');
+(14, '17108217001', '2022-12-19 10:02:11', 'pulang', '2022-12-19'),
+(15, '3245522323', '2023-01-03 09:47:18', 'masuk', '2023-01-03');
 
 -- --------------------------------------------------------
 
@@ -59,14 +60,14 @@ CREATE TABLE `admin` (
   `username` varchar(128) NOT NULL,
   `password` varchar(128) NOT NULL,
   `role_id` varchar(2) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `admin`
 --
 
 INSERT INTO `admin` (`admin_id`, `nama_admin`, `username`, `password`, `role_id`) VALUES
-(1, 'Mip Saripudin, 'admin', '21232f297a57a5a743894a0e4a801fc3', '1');
+(1, 'MIP SARIPUDIN', 'admin', 'bfa9e1582c05cf7bdb3f51a1970907e5', '1');
 
 -- --------------------------------------------------------
 
@@ -77,18 +78,18 @@ INSERT INTO `admin` (`admin_id`, `nama_admin`, `username`, `password`, `role_id`
 CREATE TABLE `bagian` (
   `id_bagian` int(11) NOT NULL,
   `nama_bagian` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `bagian`
 --
 
 INSERT INTO `bagian` (`id_bagian`, `nama_bagian`) VALUES
-(1, 'Human Resource'),
-(2, 'Keuangan'),
-(3, 'Legal Officer'),
-(4, 'Marketing'),
-(5, 'Frontend Developer');
+(8, 'Kepala'),
+(9, 'Waka Kurikulum'),
+(10, 'Waka Kesiswaan'),
+(11, 'Kepala Program'),
+(12, 'Guru Mapel');
 
 -- --------------------------------------------------------
 
@@ -99,7 +100,7 @@ INSERT INTO `bagian` (`id_bagian`, `nama_bagian`) VALUES
 CREATE TABLE `cabang` (
   `id_cabang` int(11) NOT NULL,
   `nama_cabang` varchar(128) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `cabang`
@@ -128,7 +129,7 @@ CREATE TABLE `data_cuti` (
   `status` varchar(100) NOT NULL,
   `waktu_pengajuan` date NOT NULL,
   `waktu_selesai` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 -- --------------------------------------------------------
 
@@ -144,18 +145,15 @@ CREATE TABLE `jabatan` (
   `benefit1` varchar(128) NOT NULL,
   `benefit2` varchar(128) DEFAULT NULL,
   `benefit3` varchar(128) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `jabatan`
 --
 
 INSERT INTO `jabatan` (`id_jabatan`, `nama_jabatan`, `gaji_pokok`, `tunjangan`, `benefit1`, `benefit2`, `benefit3`) VALUES
-(1, 'Direktur', '10000000', '2000000', 'Asset Kendaraan', 'Asset Laptop', 'BPJS Kesehatan'),
-(2, 'Manager', '8000000', '1000000', 'Asset Laptop', 'BPJS Kesehatan', NULL),
-(7, 'Supervisi', '7000000', '800000', 'Asset Laptop', 'BPJS Kesehatan', ''),
-(8, 'Staff', '6000000', '780000', 'Asset Laptop', 'BPJS Kesehatan', ''),
-(9, 'Non Staff', '5000000', '780000', 'BPJS Kesehatan', '', '');
+(10, 'KEPALA SEKOLAH', '2500000', '500000', 'Asset Laptop', '', ''),
+(11, 'STAFF', '6000000', '780000', 'Asset Kendaraan', '', '');
 
 -- --------------------------------------------------------
 
@@ -167,7 +165,7 @@ CREATE TABLE `kabupaten` (
   `id_kabupaten` int(11) NOT NULL,
   `id_provinsi` int(11) NOT NULL,
   `kabupaten` varchar(128) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `kabupaten`
@@ -533,7 +531,7 @@ CREATE TABLE `kecamatan` (
   `id_kecamatan` int(11) NOT NULL,
   `id_kabupaten` int(11) NOT NULL,
   `kecamatan` varchar(128) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `kecamatan`
@@ -546,7 +544,8 @@ INSERT INTO `kecamatan` (`id_kecamatan`, `id_kabupaten`, `kecamatan`) VALUES
 (4, 9, 'Pondok Aren'),
 (5, 9, 'Serpong'),
 (6, 9, 'Serpong Utara'),
-(7, 9, 'Setu');
+(7, 9, 'Setu'),
+(9, 248, 'Bogor Selatan');
 
 -- --------------------------------------------------------
 
@@ -569,16 +568,7 @@ CREATE TABLE `payroll` (
   `status` varchar(2) NOT NULL,
   `channel_bayar` varchar(128) NOT NULL,
   `qr_code` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `payroll`
---
-
-INSERT INTO `payroll` (`id_payroll`, `kode_payroll`, `tgl_payroll`, `waktu_payroll`, `id_pegawai`, `nama_jabatan`, `nama_bagian`, `hadir`, `sakit`, `alpha`, `telat`, `status`, `channel_bayar`, `qr_code`) VALUES
-(4, 'TR690510490568', '2022-09-28', '00:13:00', 4, 'Direktur', 'Keuangan', NULL, NULL, NULL, NULL, '1', 'Direct Bank Transfer', 'TR690510490568.png'),
-(5, 'TR636709796670', '2022-10-28', '00:14:00', 4, 'Direktur', 'Keuangan', NULL, NULL, NULL, NULL, '1', 'Direct Bank Transfer', 'TR636709796670.png'),
-(6, 'TR879139860277', '2022-11-29', '00:14:00', 4, 'Direktur', 'Keuangan', NULL, NULL, NULL, NULL, '1', 'Direct Bank Transfer', 'TR879139860277.png');
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -614,16 +604,14 @@ CREATE TABLE `pegawai` (
   `password` varchar(128) NOT NULL,
   `role_id` varchar(2) NOT NULL,
   `about` text DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `pegawai`
 --
 
 INSERT INTO `pegawai` (`id_pegawai`, `nik`, `nama`, `tempat_lahir`, `tgl_lahir`, `jenis_kelamin`, `alamat`, `provinsi`, `kabupaten`, `kecamatan`, `agama`, `status_nikah`, `warga_negara`, `nip`, `photo`, `status_pegawai`, `tgl_masuk`, `id_jabatan`, `id_bagian`, `no_rek`, `nama_rek`, `no_hp`, `email`, `username`, `password`, `role_id`, `about`) VALUES
-(1, '3674052109990002', 'Ahmad Hannafi', 'Yogyakarta', '1998-11-24', 'Laki-laki', 'Jl. Raya Tenggarong Blok F4, RT 001, RW 004', '17', '8', '3', 'Islam', 'Belum Menikah', 'WNI', '171091800', 'avatar.png', 'contract employee', '2022-12-01', 8, 5, '67600982090', 'AHMAD HANNAFI', '08126767817', 'codeignation@gmail.com', 'ahmad', '202cb962ac59075b964b07152d234b70', '2', 'A wonderful serenity has taken possession of my entire soul, like these sweet mornings of spring which I enjoy with my whole heart. I am alone, and feel the charm of existence was created for the bliss of souls like mine.I am so happy, my dear friend, so absorbed in the exquisite sense of mere tranquil existence, that I neglect my talents.'),
-(2, '3674052109990001', 'Indira Nuralifa', 'Jakarta', '1997-01-01', 'Perempuan', 'Jl. Pegadegan Barat No. 19', '17', '9', '3', 'Islam', 'Belum Menikah', 'WNI', '1710821900', 'female.png', 'permanent employee', '2022-12-13', 7, 2, '67600982019', 'Indira Nuralifa', '085215678990', 'indiranuralifa@mail.com', 'indira', '202cb962ac59075b964b07152d234b70', '2', NULL),
-(4, '3674052109990003', 'Abimana Setyanegara', 'Banten', '1989-01-01', 'Laki-laki', 'Jl. Palem Raya Blok F4. No. 19 - RT 001, RW 018', '17', '5', '3', 'Kristen', 'Duda', 'WNI', '17108217001', 'png-transparent-avatar-user-computer-icons-software-developer-avatar-child-face-heroes-removebg-preview.png', 'permanent employee', '2022-12-18', 1, 2, '67600982011', 'Abimana Setyanegara', '08125656541', 'abimanasetya@mail.com', 'abi', '202cb962ac59075b964b07152d234b70', '2', NULL);
+(7, '121212121233312', 'MIP SARIPUDIN', 'SUKABUMI', '1995-10-21', 'Laki-laki', 'WANGUN ATAS', '18', '248', '9', 'Islam', 'Sudah Menikah', 'WNI', 'O001', '12276037822.jpeg', 'permanent employee', '2019-01-13', 11, 12, '111002031', 'BJB', '080808484848', 'mip.saripudin@unida.ac.id', 'O001', '04048aeca2c0f5d84639358008ed2ae7', '2', NULL);
 
 -- --------------------------------------------------------
 
@@ -634,7 +622,7 @@ INSERT INTO `pegawai` (`id_pegawai`, `nik`, `nama`, `tempat_lahir`, `tgl_lahir`,
 CREATE TABLE `provinsi` (
   `id_provinsi` int(11) NOT NULL,
   `provinsi` varchar(128) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `provinsi`
@@ -757,7 +745,7 @@ ALTER TABLE `provinsi`
 -- AUTO_INCREMENT for table `absen`
 --
 ALTER TABLE `absen`
-  MODIFY `id_absen` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id_absen` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `admin`
@@ -769,7 +757,7 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `bagian`
 --
 ALTER TABLE `bagian`
-  MODIFY `id_bagian` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_bagian` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `cabang`
@@ -787,7 +775,7 @@ ALTER TABLE `data_cuti`
 -- AUTO_INCREMENT for table `jabatan`
 --
 ALTER TABLE `jabatan`
-  MODIFY `id_jabatan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id_jabatan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `kabupaten`
@@ -799,19 +787,19 @@ ALTER TABLE `kabupaten`
 -- AUTO_INCREMENT for table `kecamatan`
 --
 ALTER TABLE `kecamatan`
-  MODIFY `id_kecamatan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_kecamatan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `payroll`
 --
 ALTER TABLE `payroll`
-  MODIFY `id_payroll` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_payroll` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `pegawai`
 --
 ALTER TABLE `pegawai`
-  MODIFY `id_pegawai` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_pegawai` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `provinsi`
